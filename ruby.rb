@@ -28,7 +28,15 @@ module Enumerable
         p new
     end
 
-
+    def my_all?
+        self.my_each do |value|
+            if yield(value) == false
+                return false
+            end
+        end
+        return true
+    end
+    
 end
 
 array = [1,2,3,4,5]
@@ -36,3 +44,4 @@ array = [1,2,3,4,5]
 array.my_each_with_index { |value, index| puts "index: #{index} of #{value}"}
 array.my_each { |value| puts "#{value}x"}
 array.my_select {|item| item > 2}
+p array.my_all? {|item| item > 0}
