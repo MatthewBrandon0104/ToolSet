@@ -1,12 +1,12 @@
 module Enumerable
     
     def my_each
-        new = []
         i = 0
         while i < self.length
-            new << yield(self[i])
+            yield(self[i])
             i += 1
         end
+        self
     end
     
     def my_each_with_index
@@ -66,7 +66,7 @@ module Enumerable
         end
         return count
     end
-
+    
 end
 
 array = [1,2,3,4,5]
