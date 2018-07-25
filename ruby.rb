@@ -67,6 +67,14 @@ module Enumerable
         return count
     end
     
+    def my_map
+        new = []
+        self.my_each do |value|
+            new << yield(value)
+        end
+        return new
+    end
+    
 end
 
 array = [1,2,3,4,5]
@@ -80,3 +88,4 @@ p array.my_none? {|item| item > 4}
 p array.my_count
 p array.my_count(3)
 p array.my_count {|item| item > 2}
+p array.my_map {|item| "#{item}" + "x"}
