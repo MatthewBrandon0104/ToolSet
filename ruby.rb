@@ -54,6 +54,26 @@ module Enumerable
         end
         return true
     end
+    
+    def my_count(arg = "default")
+        count = 0
+        if arg != "default"
+            self.my_each do |value|
+                if value == arg
+                    count += 1
+                end
+            end
+        elsif block_given? == false
+            count = self.length
+        else
+            self.my_each do |value|
+                if yield(value) == true
+                    count += 1
+                end
+            end
+        end
+        return count
+    end
 
 end
 
@@ -65,3 +85,6 @@ array.my_select {|item| item > 2}
 p array.my_all? {|item| item > 0}
 p array.my_any? {|item| item > 2}
 p array.my_none? {|item| item > 4}
+p array.my_count
+p array.my_count(3)
+p array.my_count {|item| item > 2}
