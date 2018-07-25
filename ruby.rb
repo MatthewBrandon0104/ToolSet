@@ -58,19 +58,11 @@ module Enumerable
     def my_count(arg = "default")
         count = 0
         if arg != "default"
-            self.my_each do |value|
-                if value == arg
-                    count += 1
-                end
-            end
+            self.my_each {|value| count += 1 if value == arg}
         elsif block_given? == false
             count = self.length
         else
-            self.my_each do |value|
-                if yield(value) == true
-                    count += 1
-                end
-            end
+            self.my_each  {|value| count += 1 if yield(value) == true}
         end
         return count
     end
