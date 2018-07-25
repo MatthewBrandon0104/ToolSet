@@ -82,9 +82,6 @@ module Enumerable
         return result
     end
     
-    
-    
-    def 
 end
 
 array = [1,2,3,4,5]
@@ -100,3 +97,8 @@ p array.my_count(3)
 p array.my_count {|item| item > 2}
 p array.my_map {|item| "#{item}" + "x"}
 p array.my_inject {|sum, number| sum + number}
+
+def multiply_els(array)
+        array.my_inject(1) {|result, item| result * item}
+    end
+p multiply_els(array)
