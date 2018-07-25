@@ -46,6 +46,15 @@ module Enumerable
         return false
     end
     
+    def my_none?
+        self.my_each do |value|
+            if yield(value) == true
+            return false
+            end
+        end
+        return true
+    end
+
 end
 
 array = [1,2,3,4,5]
@@ -55,3 +64,4 @@ array.my_each { |value| puts "#{value}x"}
 array.my_select {|item| item > 2}
 p array.my_all? {|item| item > 0}
 p array.my_any? {|item| item > 2}
+p array.my_none? {|item| item > 4}
