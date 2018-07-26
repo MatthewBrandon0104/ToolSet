@@ -21,36 +21,29 @@ module Enumerable
     def my_select
         new = []
         self.my_each do |value|
-            if yield(value) == true
+            new << value if yield(value) == true
                 new << value
-            end
         end
         p new
     end
 
     def my_all?
         self.my_each do |value|
-            if yield(value) == false
-                return false
-            end
+            return false if yield(value) == false
         end
         return true
     end
     
     def my_any?
         self.my_each do |value|
-            if yield(value) == true
-                return true
-            end
+            return true if yield(value) == true
         end
         return false
     end
     
     def my_none?
         self.my_each do |value|
-            if yield(value) == true
-            return false
-            end
+            return false if yield(value) == true
         end
         return true
     end
@@ -90,7 +83,7 @@ module Enumerable
 end
 
 array = [1,2,3,4,5]
-=begin
+
 array.my_each_with_index { |value, index| puts "index: #{index} of #{value}"}
 array.my_each { |value| puts "#{value}x"}
 array.my_select {|item| item > 2}
@@ -100,16 +93,14 @@ p array.my_none? {|item| item > 4}
 p array.my_count
 p array.my_count(3)
 p array.my_count {|item| item > 2}
-=end
 p array.my_map {|item| "#{item}" + "x"}
 
 my_proc = Proc.new {|item| "#{item}" + "z" }
-        
 p array.my_map(&my_proc)
 
-#p array.my_inject {|sum, number| sum + number}
+p array.my_inject {|sum, number| sum + number}
 
-#def multiply_els(array)
-#        array.my_inject(1) {|result, item| result * item}
-#    end
-#p multiply_els(array)
+def multiply_els(array)
+        array.my_inject(1) {|result, item| result * item}
+    end
+p multiply_els(array)
