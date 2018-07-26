@@ -67,10 +67,15 @@ module Enumerable
         return count
     end
     
-    def my_map
+    def my_map(proc=true)
         new = []
-        self.my_each do |value|
+        if proc.is_a?(Proc)
+            self.my_each do |value|
+                new << proc(value)
+            end
+        else self.my_each do |value|
             new << yield(value)
+            end
         end
         return new
     end
@@ -85,7 +90,7 @@ module Enumerable
 end
 
 array = [1,2,3,4,5]
-
+=begin
 array.my_each_with_index { |value, index| puts "index: #{index} of #{value}"}
 array.my_each { |value| puts "#{value}x"}
 array.my_select {|item| item > 2}
@@ -95,10 +100,16 @@ p array.my_none? {|item| item > 4}
 p array.my_count
 p array.my_count(3)
 p array.my_count {|item| item > 2}
+=end
 p array.my_map {|item| "#{item}" + "x"}
-p array.my_inject {|sum, number| sum + number}
 
-def multiply_els(array)
-        array.my_inject(1) {|result, item| result * item}
-    end
-p multiply_els(array)
+my_proc = Proc.new {|item| "#{item}" + "z" }
+        
+p array.my_map(&my_proc)
+
+#p array.my_inject {|sum, number| sum + number}
+
+#def multiply_els(array)
+#        array.my_inject(1) {|result, item| result * item}
+#    end
+#p multiply_els(array)
